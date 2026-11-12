@@ -1,6 +1,6 @@
 # Bajkokredka – sklep z bajkami do kolorowania
 
-Hosting: **Cloudflare Pages** (strona statyczna + funkcje serwerowe).
+Hosting: **Cloudflare Workers** (strona statyczna z `public/` + kod serwerowy w `src/worker.js`). Ustawienia w `wrangler.jsonc`.
 
 ## Co gdzie jest
 
@@ -9,7 +9,8 @@ Hosting: **Cloudflare Pages** (strona statyczna + funkcje serwerowe).
 | `public/` | Gotowa strona, którą widzą klienci (42 podstrony, obrazki, sitemap). **Nie edytuj ręcznie**, powstaje z `build.py`. |
 | `strona/podglad/` | Źródło strony: jeden `index.html` + `bajki.js` + obrazki. Tu wprowadza się zmiany. |
 | `strona/build.py` | Generator: z `podglad/` robi `public/`. |
-| `functions/api/` | Część serwerowa (płatności, maile, newsletter). Każdy plik = jeden adres `/api/...`. |
+| `src/worker.js` | Część serwerowa (płatności, maile, newsletter) pod adresami `/api/...`. |
+| `wrangler.jsonc` | Ustawienia Cloudflare (nazwa, folder strony, strona 404). |
 | `docs/` | Instrukcja budowy, lista zadań, projekty regulaminu i polityki prywatności, katalog bajek. |
 
 ## Po zmianie strony albo dodaniu bajki
@@ -23,15 +24,15 @@ Skrypt na końcu musi wypisać `Kontrola: bez uwag`. Potem `git push`, a Cloudfl
 
 Wymaga: python3, playwright (`pip install playwright beautifulsoup4 lxml` i `playwright install chromium`).
 
-## Ustawienia w Cloudflare Pages
+## Ustawienia w Cloudflare
 
-- Framework preset: **None**
+Workers & Pages → projekt `bajkokredka` podłączony do tego repozytorium:
 - Build command: *(puste)*
-- Build output directory: **public**
+- Deploy command: `npx wrangler deploy`
 
 Adresy podstron są bez `.html` (np. `/kontakt`), a nieistniejące adresy pokazują `404.html` z kodem 404.
 
 ## Zasady
 
 - **Pliki PDF nigdy nie trafiają do repozytorium** (pilnuje tego `.gitignore`). Leżą w prywatnym magazynie plików, a klient dostaje link po zapłacie.
-- **Klucze (Stripe, maile itd.) nigdy nie trafiają do kodu.** Wpisuje się je w Cloudflare: projekt → Settings → Variables and Secrets.
+- **Klucze (Stripe, maile itd.) nigdy nie trafiają do kodu.** Wpisuje się je w Cloudflare: projekt → Settings → Variables and Secrets (typ **Secret**).

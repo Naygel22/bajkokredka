@@ -3,7 +3,7 @@
 
   python3 build.py <katalog-zrodlowy> <katalog-wynikowy> [https://adres-sklepu.pl/]
 
-Adresy podstron są bez końcówki .html (np. /kontakt); hosting (Cloudflare Pages) sam dobiera plik kontakt.html.
+Adresy podstron są bez końcówki .html (np. /kontakt); hosting (Cloudflare) sam dobiera plik kontakt.html.
 
 Źródło: index.html (jeden plik, adresy z #), bajki.js, img/, kolorowanki/, fonts/, og.jpg.
 Wynik:  index.html, strona każdej bajki i kategorii, style/app z odciskiem w nazwie,

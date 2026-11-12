@@ -1,0 +1,18 @@
+// Ustawienia Cloudflare Workers dla sklepu Bajkokredka.
+{
+  "name": "bajkokredka",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    // gotowa strona z build.py
+    "directory": "./public",
+    "binding": "ASSETS",
+    // /kontakt pokazuje kontakt.html, a /kontakt.html przekierowuje na /kontakt
+    "html_handling": "auto-trailing-slash",
+    // nieistniejący adres → 404.html z kodem 404
+    "not_found_handling": "404-page",
+    // do kodu (src/worker.js) trafiają tylko adresy /api/...; strona idzie prosto z plików
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true }
+}
