@@ -1,0 +1,14 @@
+# Pliki PDF z bajkami NIE trafiają do repozytorium (są płatne, leżą w prywatnym magazynie plików)
+*.pdf
+pdf/
+
+# Klucze i hasła – tylko w panelu Cloudflare i lokalnie
+.env
+.env.*
+.dev.vars
+
+node_modules/
+.wrangler/
+__pycache__/
+.DS_Store
+Thumbs.db
